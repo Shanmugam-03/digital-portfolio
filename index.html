@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/random/1920x1080?stars') no-repeat center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #ff6f61;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #ff6f61;
+            text-shadow: 0 0 10px rgba(255, 111, 97, 0.7);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 150px;
+            padding-bottom: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 111, 97, 0.2) 0%, rgba(0, 0, 0, 0.8) 80%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .profile-pic {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 6px solid #ff6f61;
+            margin-bottom: 2.5rem;
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(255, 111, 97, 0.7), 0 0 60px rgba(255, 111, 97, 0.3);
+            animation: float 4s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #ff6f61, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 111, 97, 0.5);
+        }
+
+        .hero p {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 4rem;
+            background: linear-gradient(45deg, #ff6f61, #ff8c61);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(255, 111, 97, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 111, 97, 0.8);
+        }
+
+        section {
+            padding: 8rem 2rem;
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            margin: 2rem;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ff6f61;
+            text-align: center;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #ff6f61, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 111, 97, 0.5);
+        }
+
+        #about p {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 111, 97, 0.2);
+        }
+
+        .skills-list {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .skills-list li {
+            background: linear-gradient(45deg, #ff6f61, #ff8c61);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(255, 111, 97, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skills-list li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .skills-list li:hover::before {
+            left: 100%;
+        }
+
+        .skills-list li:hover {
+            transform: scale(1.15) rotate(3deg);
+            box-shadow: 0 12px 30px rgba(255, 111, 97, 0.6);
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 111, 97, 0.2);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 50px rgba(255, 111, 97, 0.4);
+        }
+
+        .project-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ff6f61;
+            text-shadow: 0 0 10px rgba(255, 111, 97, 0.5);
+        }
+
+        .project-card p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+        }
+
+        #contact {
+            text-align: center;
+        }
+
+        #contact p {
+            font-size: 1.8rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 111, 97, 0.2);
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1.5rem 5rem;
+            background: linear-gradient(45deg, #ff6f61, #ffd700);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 40px rgba(255, 111, 97, 0.6);
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 20px 60px rgba(255, 111, 97, 0.8);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 30px rgba(255, 111, 97, 0.7); }
+            100% { box-shadow: 0 0 50px rgba(255, 111, 97, 1); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(255, 111, 97, 0.6); }
+            50% { box-shadow: 0 0 40px rgba(255, 111, 97, 1); }
+            100% { box-shadow: 0 0 20px rgba(255, 111, 97, 0.6); }
+        }
+
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 4rem; }
+            .hero p { font-size: 1.8rem; }
+            .profile-pic { width: 180px; height: 180px; }
+            .hero { padding-top: 120px; }
+        }
+
+        @media (max-width: 768px) {
+            nav ul { flex-direction: column; gap: 2rem; }
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1.5rem; }
+            .btn, .download-btn { padding: 1rem 3rem; font-size: 1.2rem; }
+            h2 { font-size: 2.8rem; }
+            .profile-pic { width: 150px; height: 150px; }
+            .hero { padding-top: 160px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            section { padding: 5rem 1rem; margin: 1rem; }
+            h2 { font-size: 2.2rem; }
+            .profile-pic { width: 120px; height: 120px; }
+            .btn, .download-btn { padding: 0.8rem 2rem; font-size: 1rem; }
+            .hero { padding-top: 140px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hero">
+            <div class="hero-content">
+                <img src="sanmugam.jpg" alt="shanmugam's Profile Picture" class="profile-pic">
+                <h1>Hi, I'm shanmuga sundharam</h1>
+                <p>Master of HTML, CSS, and JavaScript</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I'm a passionate web developer who crafts breathtaking digital experiences using the power of HTML, CSS, and JavaScript. With an eye for beauty and a heart for innovation, I turn ideas into stunning realities.</p>
+    </section>
+
+    <section id="skills">
+        <h2>My Skills</h2>
+        <ul class="skills-list">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ul>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <h3>Project 1</h3>
+                <p>A mesmerizing web app showcasing fluid animations and flawless responsiveness.</p>
+            </div>
+            <div class="project-card">
+                <h3>Project 2</h3>
+                <p>An elegant website with captivating gradients and interactive elements.</p>
+            </div>
+            <div class="project-card">
+                <h3>Project 3</h3>
+                <p>A portfolio masterpiece blending beauty and functionality seamlessly.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Email: 23ai045@amjaincollege.edu.in | Phone: 9976503650</p>
+        <a href="sanmugam.pdf" download=".pdf" class="download-btn">Download My Resume</a>
+    </section>
+
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = document.querySelector(this.getAttribute('href'));
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(70px)';
+            section.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
